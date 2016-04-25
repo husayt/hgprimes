@@ -4,6 +4,7 @@
 
 package ox;
 
+import com.google.common.base.Stopwatch;
 import com.sun.jersey.api.view.Viewable;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Path("/rst")
 @Produces(MediaType.APPLICATION_JSON)
@@ -40,9 +42,11 @@ public class WebResource {
         public PrimeReqResult getPrimes(@QueryParam("count") long count, @QueryParam("method") String methodname) {
             PrimeReqResult res;
             try {
-
+                Stopwatch sw = Stopwatch.createStarted();
                 final Set<Long> firstNPrimes = PrimesService.getFirstNPrimes(methodname, count);
+                sw.stop();
                 res = new PrimeReqResult(firstNPrimes);
+                res.ms=sw.elapsed(TimeUnit.MILLISECONDS);
             } catch (Exception x) {
                 res = new PrimeReqResult(x.getMessage());
             }
@@ -57,6 +61,8 @@ public class WebResource {
         private Set<Long> numbers;
         @Getter
         private long count;
+        @Getter
+        private long ms;
 
 
         public PrimeReqResult(String error) {

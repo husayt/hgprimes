@@ -25,6 +25,11 @@ Minimalistic web app using Rapidoid framework
 ##UI 
 Minimalistic approach was chosen with UI
 
-# Demo
+# Further improvements
+
+* Multi threaded algorithm
+* Big numbers
+* more to come
+
 
 

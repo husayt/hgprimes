@@ -64,33 +64,33 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 id="buttons"><a name="checker">Prime Checker</a></h1>
+                    <h1><a name="checker">Prime Checker</a></h1>
                 </div>
             </div>
         </div>
 
         <div class="row">
 
-          <legend>Check if a number is a prime by one of the methods?</legend>
+            <legend>Check if a number is a prime by one of the methods?</legend>
             <br><br>
             <div class="well bs-component">
-            <form name="primetest" class="form-inline" onsubmit="return false">
+                <form name="primetest" class="form-inline" onsubmit="return false">
 
-                Is <input id="checkNumber" type="text" size="13" name="input" maxlength="13" class="form-control"
-                          placeholder="Input number">
-                prime via <select id="checkMethod" class="form-control">
-                <option>Direct</option>
-                <option>Dictionary Sieve</option>
-                <option>Set Sieve</option>
-            </select> method?
-                <button id="btnCheck" class="btn btn-primary">Check!</button>
-                <br><br>
+                    Is <input id="checkNumber" type="text" size="13" name="input" maxlength="13" class="form-control"
+                              placeholder="Input number">
+                    prime via <select id="checkMethod" class="form-control">
+                    <option>Direct</option>
+                    <option>Dictionary Sieve</option>
+                    <option>Set Sieve</option>
+                </select> method?
+                    <button id="btnCheck" class="btn btn-primary">Check!</button>
+                    <br><br>
 
-                <div id="checkOutArea" class="alert alert-dismissible" >
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong id="checkOut"></strong>
-                </div>
-            </form>
+                    <div id="checkOutArea" class="alert alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong id="checkOut"></strong>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -100,53 +100,53 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 id="buttons"><a name="lister">Prime Lister</a></h1>
+                    <h1><a name="lister">Prime Lister</a></h1>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <legend>Uses one of the given methods to calculate list of primes.</legend>
-            <div class=well bs-component">
+            <div class="well bs-component">
             <form name="primelist" onsubmit="return false" class="form-inline">
 
-            <fieldset>
+                <fieldset>
 
 
-                Show first <input type="text" size="5" name="input" maxlength="5" class="form-control"
-                                  placeholder="Number input" value="100" id="listNumber" >
-                primes via <select id="listMethod"  class="form-control">
-                <option>Direct</option>
-                <option>Dictionary Sieve</option>
-                <option>Set Sieve</option>
-            </select> method?
+                    Show first <input type="text" size="6" name="input" maxlength="5" class="form-control"
+                                      placeholder="Number input" value="100" id="listNumber">
+                    primes via <select id="listMethod" class="form-control">
+                    <option>Direct</option>
+                    <option>Dictionary Sieve</option>
+                    <option>Set Sieve</option>
+                </select> method?
 
-                <button id="btnList" class="btn btn-primary">Go!</button>
-                <br><br>
-                <div id="listOutArea" class="alert alert-dismissible" >
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong id="listOut"></strong>
-                </div>
+                    <button id="btnList" class="btn btn-primary">Go!</button>
+                    <br><br>
+                    <div id="listOutArea" class="alert alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong id="listOut"></strong>
+                    </div>
                 </fieldset>
             </form>
         </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+<footer>
+    <div class="row">
+        <div class="col-lg-12">
+
+            <p>Made by HG</p>
+            <p>See Code at <a href="https://github.com/husayt/hgprimes">GitHub</a>.</p>
+
         </div>
     </div>
-    <br>
-    <br>
 
-
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-
-                <p>Made by HG</p>
-                <p>See Code at <a href="https://github.com/husayt/hgprimes">GitHub</a>.</p>
-
-            </div>
-        </div>
-
-    </footer>
+</footer>
 
 
 </div>
@@ -168,20 +168,22 @@
             url: url,
             success: function (result) {
                 $("#checkOutArea").show();
-                $("#checkOutArea").addClass( "alert-success" );
-                $("#checkOut").text(result?"Yes":"No");
+                $("#checkOutArea").removeClass("alert-danger");
+                $("#checkOutArea").addClass("alert-success");
+                $("#checkOut").text(result ? "Yes" : "No");
                 $("#btnCheck").text("Check!");
             },
             error: function (result) {
                 $("#checkOutArea").show();
-                $("#checkOutArea").addClass( "alert-danger" );
+                $("#checkOutArea").removeClass("alert-success");
+                $("#checkOutArea").addClass("alert-danger");
                 $("#checkOut").text("Error. ");
                 $("#btnCheck").text("Check!");
             }
         });
     });
-    
-    
+
+
     //list primes
 
     $("#listNumber").keyup(function (event) {
@@ -197,20 +199,22 @@
             url: url,
             success: function (result) {
                 $("#listOutArea").show();
-                if (!result.error){
-                    $("#listOutArea").addClass( "alert-success" );
-                    $("#listOut").text(result.numbers.join(", "));
+                if (!result.error) {
+                    $("#listOutArea").removeClass("alert-danger");
+                    $("#listOutArea").addClass("alert-success");
+                    $("#listOut").html(result.numbers.join(", ") + ".<br><br> Finished in " + result.ms + "ms");
 
-                }else{
-                    $("#listOutArea").addClass( "alert-danger" );
-                    $("#listOut").text("Error: "+result.error);
+                } else {
+                    $("#listOutArea").addClass("alert-danger");
+                    $("#listOutArea").removeClass("alert-success");
+                    $("#listOut").text("Error: " + result.error);
                 }
 
                 $("#btnList").text("List!");
             },
             error: function (result) {
                 $("#listOutArea").show();
-                $("#listOutArea").addClass( "alert-danger" );
+                $("#listOutArea").addClass("alert-danger");
                 $("#listOut").text("Error. ");
                 $("#btnList").text("List!");
             }
@@ -218,8 +222,8 @@
     });
 
     //helper
-    var getMethodName=function(name){
-        switch(name) {
+    var getMethodName = function (name) {
+        switch (name) {
         case "Dictionary Sieve":
             return "dict";
             break;
