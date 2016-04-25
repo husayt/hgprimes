@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Prime Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" href="bootstrap.min.css" media="screen">
+
+
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="" class="navbar-brand">PrimeLand</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+
+                <li>
+                    <a href="#checker">Prime Checker</a>
+                </li>
+                <li>
+                    <a href="#lister">Primes Lister</a>
+                </li>
+
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">by HG</a></li>
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="page-header" id="banner">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                <h1>Primes</h1>
+                <p class="lead">A prime number (or a prime) is a natural number greater than 1 that has no positive
+                    divisors other than 1 and itself.</p>
+            </div>
+
+
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+
+    <div class="bs-docs-section">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 id="buttons"><a name="checker">Prime Checker</a></h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            Check if a number is a prime by one of the methods?
+            <br><br>
+            <div class="well bs-component">
+            <form name="primetest" class="form-inline" onsubmit="return false">
+
+                Is <input id="checkNumber" type="text" size="13" name="input" maxlength="13" class="form-control"
+                          placeholder="Input number">
+                prime via <select id="checkMethod" class="form-control">
+                <option>Direct</option>
+                <option>Dictionary Sieve</option>
+                <option>Set Sieve</option>
+            </select> method?
+                <button id="btnCheck" class="btn btn-primary">Check!</button>
+                <br><br>
+
+                <div id="checkOutArea" class="alert alert-dismissible" >
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong id="checkOut"></strong>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bs-docs-section">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 id="buttons"><a name="lister">Prime Lister</a></h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <legend>Uses one of the given methods to calculate list of primes.</legend>
+            <div class=well bs-component">
+            <form name="primelist" onsubmit="return false" class="form-inline">
+
+            <fieldset>
+
+
+                Show first <input type="text" size="5" name="input" maxlength="5" class="form-control"
+                                  placeholder="Number input" value="100" id="listNumber" >
+                primes via <select id="listMethod"  class="form-control">
+                <option>Direct</option>
+                <option>Dictionary Sieve</option>
+                <option>Set Sieve</option>
+            </select> method?
+
+                <button id="btnList" class="btn btn-primary">Go!</button>
+                <br><br>
+                <div id="listOutArea" class="alert alert-dismissible" >
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong id="listOut"></strong>
+                </div>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+    </div>
+    <br>
+    <br>
+
+
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+
+                <p>Made by HG</p>
+                <p>See Code at <a href="https://github.com/">GitHub</a>.</p>
+
+            </div>
+        </div>
+
+    </footer>
+
+
+</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script>
+    $("#checkNumber").keyup(function (event) {
+        $("#checkOutArea").hide();
+    });
+    $("#btnCheck").on("click", function (event) {
+        $("#btnCheck").text("Checking...");
+        $("#checkOutArea").hide();
+        var number = $("#checkNumber").val(),
+                method = getMethodName($("#checkMethod").val()),
+                url = "/rst/isprime?number=" + number + "&method=" + method;
+        $.ajax({
+            url: url,
+            success: function (result) {
+                $("#checkOutArea").show();
+                $("#checkOutArea").addClass( "alert-success" );
+                $("#checkOut").text(result?"Yes":"No");
+                $("#btnCheck").text("Check!");
+            },
+            error: function (result) {
+                $("#checkOutArea").show();
+                $("#checkOutArea").addClass( "alert-danger" );
+                $("#checkOut").text("Error. ");
+                $("#btnCheck").text("Check!");
+            }
+        });
+    });
+    
+    
+    //list primes
+
+    $("#listNumber").keyup(function (event) {
+        $("#listOutArea").hide();
+    });
+    $("#btnList").on("click", function (event) {
+        $("#btnList").text("Listing...");
+        $("#listOutArea").hide();
+        var number = $("#listNumber").val(),
+                method = getMethodName($("#listMethod").val()),
+                url = "/rst/listprimes?count=" + number + "&method=" + method;
+        $.ajax({
+            url: url,
+            success: function (result) {
+                $("#listOutArea").show();
+                if (!result.error){
+                    $("#listOutArea").addClass( "alert-success" );
+                    $("#listOut").text(result.numbers.join(", "));
+
+                }else{
+                    $("#listOutArea").addClass( "alert-danger" );
+                    $("#listOut").text("Error: "+result.error);
+                }
+
+                $("#btnList").text("List!");
+            },
+            error: function (result) {
+                $("#listOutArea").show();
+                $("#listOutArea").addClass( "alert-danger" );
+                $("#listOut").text("Error. ");
+                $("#btnList").text("List!");
+            }
+        });
+    });
+
+    //helper
+    var getMethodName=function(name){
+        switch(name) {
+        case "Dictionary Sieve":
+            return "dict";
+            break;
+        case "Set Sieve":
+            return "set";
+            break;
+        case "Direct":
+        default:
+            return "direct";
+        }
+
+    }
+</script>
+</html>
+
