@@ -1,12 +1,14 @@
-App Engine Primes Calculator Demo
+Primes Calculator Demo using Google App Engine 
 
 
-## Sample guestbook for use with App Engine Java.
+## 
 
 Requires [Apache Maven](http://maven.apache.org) 3.1 or greater, and JDK 7+ in order to run.
 
-To build, run
+To build,  first install primelib via 
 
+    mvn install
+then run
     mvn package
 
 Building will run the tests, but to explicitly run tests you can use the test target

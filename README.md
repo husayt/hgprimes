@@ -11,7 +11,7 @@ Visit http://hgprimes.appspot.com for working demo
   
 ##Jersey flavour
 
-see jerseyprimes/README.MD
+see [jerseyprimes/README.MD](tree/master/jerseyprimes/README.MD)
 
 ##Rapidoid flavour
 
@@ -19,6 +19,7 @@ Minimalistic web app using Rapidoid framework
 
 ## PrimeLib
 
+see [PrimeLib/README.MD](tree/master/PrimeLib/README.MD)
 ## Soap flavour to come
 
 
