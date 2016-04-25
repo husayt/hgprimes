@@ -1,6 +1,9 @@
 #Prime number services in different flavours
 
-Folders 
+Visit http://hgprimes.appspot.com for working demo
+
+
+## Folder Structure 
 
 * jerseyprimes  Primes demo via Appengine
 * PrimeLib  Primes Calculation library
@@ -24,4 +27,4 @@ Minimalistic approach was chosen with UI
 
 # Demo
 
-Visit http://hgprimes.appspot.com for wroking demo
+
