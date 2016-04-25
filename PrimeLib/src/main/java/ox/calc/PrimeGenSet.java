@@ -1,12 +1,14 @@
 package ox.calc;
 
-import ox.calc.IPrimeGen;
-
 import java.util.BitSet;
 
+
+/**
+ * Eratosphene's sieve using Bitset
+ */
 public class PrimeGenSet implements IPrimeGen {
     private int primeCount = 0;
-    private static final int MaxSize = 111111112;//Integer.MAX_VALUE/2;
+    private static final int MaxSize = 10*1024*1024*8;//10Mb;
 
     // cache[x]==false means x is prime
     private BitSet cache = new BitSet(MaxSize);
@@ -21,6 +23,7 @@ public class PrimeGenSet implements IPrimeGen {
             for (int j = i + i; j < len; j += i) {
                 if (j % 2 != 0) {
                     cache.set((j - 1) / 2, true);
+                    primeCount++;
                 }
             }
         }
@@ -28,7 +31,7 @@ public class PrimeGenSet implements IPrimeGen {
 
     public boolean isPrime(long l) {
         if (l < 0 || l >= MaxSize) {
-            throw new IndexOutOfBoundsException("Index is out ");
+            throw new IndexOutOfBoundsException("Index is out bounds");
         } else if (l < 2) {
             return false;
         } else if (l < 4) {

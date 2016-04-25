@@ -19,6 +19,7 @@ public final class PrimesService {
         factory.register("set", PrimeGenSet.class);
         factory.register("dict", PrimeGenDic.class);
         factory.register("direct", PrimeGenDirect.class);
+        factory.register("directCached", PrimeGenDirectCached.class);
     }
 
     public static IPrimeGen getGenerator(String generatorName) {
@@ -43,3 +44,4 @@ public final class PrimesService {
     }
 
 }
+

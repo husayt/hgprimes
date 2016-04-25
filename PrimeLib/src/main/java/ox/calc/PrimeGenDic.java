@@ -1,12 +1,11 @@
 package ox.calc;
 
 import it.unimi.dsi.fastutil.longs.Long2BooleanAVLTreeMap;
-import ox.calc.IPrimeGen;
 
 import java.util.Map;
 
 /**
- * Created by huseyn on 22/04/2016.
+ * Cached prime generator using Efficient AVLTreeMap from FastUtil Library
  */
 public class PrimeGenDic implements IPrimeGen {
 
@@ -17,18 +16,19 @@ public class PrimeGenDic implements IPrimeGen {
 
     }
 
+    @Override
     public boolean isPrime(long x) {
-        if (cacheDic.containsKey(x)) {
-            return cacheDic.get(x);
+        if (this.cacheDic.containsKey(x)) {
+            return this.cacheDic.get(x);
         }
         long c = x / 2;
         for (long i = c; i > 1; i--) {
             if (x % i == 0) {
-                cacheDic.put(x, false);
+                this.cacheDic.put(x, false);
                 return false;
             }
         }
-        cacheDic.put(x, true);
+        this.cacheDic.put(x, true);
         return true;
     }
 }

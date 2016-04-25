@@ -34,6 +34,7 @@ public class WebResource {
             final Boolean prime = PrimesService.getGenerator(methodname).isPrime(number);
             return prime.toString();
         } catch (Exception x) {
+            log.error("error: {}",x.getMessage());
             return "Error: "+x.getMessage();
         }
     }
@@ -48,6 +49,7 @@ public class WebResource {
                 res = new PrimeReqResult(firstNPrimes);
                 res.ms=sw.elapsed(TimeUnit.MILLISECONDS);
             } catch (Exception x) {
+                log.error("error: {}",x.getMessage());
                 res = new PrimeReqResult(x.getMessage());
             }
 
