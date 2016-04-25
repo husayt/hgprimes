@@ -1,4 +1,4 @@
-Primes Calculation library
+# Primes Calculation library
 
 
 ## 
